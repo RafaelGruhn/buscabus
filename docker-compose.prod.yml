@@ -1,0 +1,54 @@
+version: "3.6"
+
+services:
+  db:
+    container_name: pegabus_db
+    restart: always
+    env_file:
+      - envs/postgres.deploy.env
+  django:
+    build:
+      context: ./django
+      args:
+        MODE: production
+    restart: always
+    volumes:
+      - django_static:/var/www/pegabus/static
+      - django_media:/var/www/pegabus/media
+      - logs:/var/log/pegabus
+    environment:
+      MODE: production
+      STATIC_ROOT: /var/www/pegabus/static
+      MEDIA_ROOT: /var/www/pegabus/media
+      LOGS_ROOT: /var/log/pegabus
+      DJANGO_PORT: 8080
+      NUM_GUNICORN_WORKERS: 2
+    logging:
+      options:
+        max-size: 1g
+    env_file:
+      - envs/postgres.deploy.env
+    depends_on:
+      - db
+  nginx:
+    image: jonasal/nginx-certbot:latest
+    container_name: pegabus_nginx
+    restart: unless-stopped
+    env_file:
+      - ./envs/nginx-certbot.env
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - django_static:/var/www/pegabus/static
+      - django_media:/var/www/pegabus/media
+      - logs:/var/log/pegabus
+      - letsencrypt:/etc/letsencrypt
+      - ./nginx/internal/:/etc/nginx/user_conf.d
+    depends_on:
+      - django
+volumes:
+  django_static:
+  django_media:
+  logs:
+  letsencrypt:

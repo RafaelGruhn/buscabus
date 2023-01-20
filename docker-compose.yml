@@ -1,0 +1,26 @@
+version: '3.6'
+
+services:
+  db:
+    image: postgres:10.4
+    container_name: pegabus_db
+    env_file:
+      - ./envs/postgres.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  django:
+    build: django/
+    container_name: pegabus_django
+    environment:
+      MODE: development
+    command: ["/code/build/wait_db.sh", "/code/run_web.sh"]
+    ports:
+      - 8080:8080
+    env_file:
+      - ./envs/postgres.env
+    depends_on:
+      - db
+    volumes:
+      - ./django:/code
+volumes:
+  postgres_data:

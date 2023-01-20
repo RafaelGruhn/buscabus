@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}PegaBus{% endblock title %}
+
+{% block content %}
+<!-- Hero Section-->
+<section style="background: url({% static 'img/index/buses.png' %}); background-size: cover; background-position: center center" class="hero">
+  <div class="container">
+    <div class="row">
+      <div class="pr-2 pl-2 text-outline">
+        <h1>PegaBus</h1>
+      </div>
+    </div><a href=".intro" class="continue link-scroll bg-dark pr-1 pl-1"><i class="fa fa-long-arrow-down"></i>Ver abaixo</a>
+  </div>
+</section>
+<!-- Intro Section-->
+<section class="intro">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9">
+        <p class="text-big text-justify">
+          Nosso produto consiste em um aplicativo ou site web que, através de um dispositivo instalado em um ônibus,
+          mostra a localização em tempo real do coletivo de transporte, visando otimizar o tempo de espera e dar mais
+          tranquilidade aos pais cujos filhos usam o transporte. 
+        </p>
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+      <div class="col-lg-9">
+        <h2 class="h3">Motivação</h2>
+        <p class="text-big text-justify">
+          A maior motivação é o problema vivenciado em nosso próprio dia a dia dias muito corridos pouco tempo e estar chegando no ponto
+          de ônibus e ver o mesmo já partindo ou até mesmo naqueles dias terríveis de chuva ficar 20 min esperando e estar ensopada quando
+          o ônibus chega, nisso viu se a necessidades de saber a hora exata em que o coletivo se aproxima do ponto para ir até o mesmo. 
+          Com o localizador espera se tornar o transporte mais seguro para as crianças menores e indefesas sabendo se assim caso o mesmo
+          esteja parado em atitude suspeita.
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <section style="background: url({% static 'img/index/map.jpg' %}); background-size: cover; background-position: center center" class="hero">
+        <div class="col-lg-9">
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+{% endblock content %}
